@@ -19,7 +19,7 @@ class ComposerScripts extends BaseScripts
 
         if (env('COMPOSER_DEV_MODE') !== '0') {
             echo shell_exec('php artisan ide-helper:generate');
-            echo shell_exec('php artisan ide-helper:eloquent --ansi');
+            echo shell_exec('php artisan ide-helper:eloquent');
             if (env('APP_ENV') === 'local') {
                 shell_exec('php artisan ide-helper:models -W --dir="app/Models"');
             }
