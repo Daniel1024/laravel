@@ -18,6 +18,11 @@ class ComposerScripts extends BaseScripts
     {
         parent::postAutoloadDump($event);
 
+        if (! file_exists('.env')) {
+            copy('.env.example', '.env');
+            echo shell_exec('php artisan key:generate');
+        }
+
         if ($event->isDevMode()) {
             echo shell_exec('php artisan ide-helper:generate');
             echo shell_exec('php artisan ide-helper:eloquent');
