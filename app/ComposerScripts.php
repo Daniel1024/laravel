@@ -28,8 +28,7 @@ class ComposerScripts extends BaseScripts
             echo shell_exec('php artisan ide-helper:eloquent');
             Dotenv::create(getcwd())->load();
             if (env('APP_ENV') === 'local') {
-                echo 'Se modifica los modelos.'.PHP_EOL;
-                shell_exec('php artisan ide-helper:models --write --dir="app/Models/"');
+                echo shell_exec('php artisan ide-helper:models --nowrite --dir="app/Models"');
             }
             echo shell_exec('php artisan ide-helper:meta');
         }
