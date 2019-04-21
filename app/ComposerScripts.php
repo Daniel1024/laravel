@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Dotenv\Dotenv;
 use Composer\Script\Event;
 use Illuminate\Foundation\ComposerScripts as BaseScripts;
 
@@ -17,11 +18,13 @@ class ComposerScripts extends BaseScripts
     {
         parent::postAutoloadDump($event);
 
-        if (env('COMPOSER_DEV_MODE') !== '0') {
+        if ($event->isDevMode()) {
             echo shell_exec('php artisan ide-helper:generate');
             echo shell_exec('php artisan ide-helper:eloquent');
+            Dotenv::create(getcwd())->load();
             if (env('APP_ENV') === 'local') {
-                shell_exec('php artisan ide-helper:models -W --dir="app/Models"');
+                echo 'Se modifica los modelos.'.PHP_EOL;
+                shell_exec('php artisan ide-helper:models --write --dir="app/Models/"');
             }
             echo shell_exec('php artisan ide-helper:meta');
         }
