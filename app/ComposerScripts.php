@@ -23,6 +23,8 @@ class ComposerScripts extends BaseScripts
             echo shell_exec('php artisan key:generate');
         }
 
+        static::deleteHelperFiles();
+
         if ($event->isDevMode()) {
             echo shell_exec('php artisan ide-helper:generate');
             echo shell_exec('php artisan ide-helper:eloquent');
@@ -33,5 +35,20 @@ class ComposerScripts extends BaseScripts
             echo shell_exec('php artisan ide-helper:meta');
         }
 
+    }
+
+    private static function deleteHelperFiles()
+    {
+        $names = [
+            '.phpstorm.meta.php',
+            '_ide_helper.php',
+            '_ide_helper_models.php'
+        ];
+
+        foreach ($names as $name) {
+            if (file_exists($name)) {
+                @unlink($name);
+            }
+        }
     }
 }
