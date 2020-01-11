@@ -28,10 +28,10 @@ class ComposerScripts extends BaseScripts
         if ($event->isDevMode()) {
             echo shell_exec('php artisan ide-helper:generate');
             echo shell_exec('php artisan ide-helper:eloquent');
-            Dotenv::create(getcwd())->load();
+            /*Dotenv::create(getcwd())->load();
             if (env('APP_ENV') === 'local') {
                 echo shell_exec('php artisan ide-helper:models --nowrite --dir="app/Models"');
-            }
+            }*/
             echo shell_exec('php artisan ide-helper:meta');
         }
 
